@@ -2,14 +2,12 @@
 This is a Tetris game built using PyQt6. 
 (Current Version v1.1)
 
-## Features
-<details>
-  
-- Tetris gameplay with random block drops
-- Smooth block movement and rotation
-- Simple scoring system
-- JUST ONE BLOCK COLOR! RED :D (will be changed it future versions lol)
-</details>
+> [!IMPORTANT]
+> ## Current Features
+> - Tetris gameplay with random block drops
+> - Smooth block movement and rotation
+> - Simple scoring system
+> - JUST ONE BLOCK COLOR! RED :D (will be changed it future versions lol)</details>
 
 
 ## Upcoming Features
