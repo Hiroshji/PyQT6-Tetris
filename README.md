@@ -1,1 +1,1 @@
-# PyQT6-TankTactics
+# PyQT6-Tetris
