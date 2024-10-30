@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel
 from PyQt6.QtGui import QPainter, QColor, QKeyEvent
-from PyQt6.QtCore import QBasicTimer, Qt, QRect
+from PyQt6.QtCore import QBasicTimer, Qt, QRect, pyqtSignal
 import sys
 import random
 
@@ -41,6 +41,8 @@ class Tetromino:
 
 # Tetris Board class
 class TetrisBoard(QWidget):
+    score_changed = pyqtSignal(int)  # Signal to notify score updates
+
     def __init__(self, parent):
         super().__init__(parent)
         self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)  # Set focus for key events
@@ -94,6 +96,7 @@ class TetrisBoard(QWidget):
         cleared_lines = BOARD_HEIGHT - len(new_board)
         if cleared_lines > 0:
             self.score += cleared_lines ** 2  # Simple scoring
+            self.score_changed.emit(self.score)  # Emit the score change signal
             self.board = [[0] * BOARD_WIDTH] * cleared_lines + new_board
         self.update()
 
@@ -154,12 +157,14 @@ class Tetris(QMainWindow):
         self.setWindowTitle("Tetris")
         self.tetris_board = TetrisBoard(self)
         self.score_label = QLabel("Score: 0", self)
-        self.tetris_board.update()
-        
+
+        # Connect the board's score_changed signal to the update_score method
+        self.tetris_board.score_changed.connect(self.update_score)
+
         layout = QVBoxLayout()
         layout.addWidget(self.score_label)
         layout.addWidget(self.tetris_board)
-        
+
         central_widget = QWidget()
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
