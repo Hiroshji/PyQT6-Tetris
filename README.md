@@ -1,1 +1,0 @@
-# PyQT6-Tetris

@@ -29,7 +29,6 @@ SHAPES = {
                        [1, 1]],
 }
 
-# Tetromino class to represent shapes and their rotations
 class Tetromino:
     def __init__(self, shape_name):
         self.shape = SHAPES[shape_name]
@@ -39,12 +38,12 @@ class Tetromino:
         """ Rotate the shape 90 degrees clockwise. """
         self.shape = [list(row) for row in zip(*self.shape[::-1])]
 
-# Tetris Board class
 class TetrisBoard(QWidget):
     score_changed = pyqtSignal(int)  # Signal to notify score updates
 
     def __init__(self, parent):
         super().__init__(parent)
+        self.setFixedSize(BOARD_WIDTH * TILE_SIZE, BOARD_HEIGHT * TILE_SIZE)  # Fix the widget size
         self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)  # Set focus for key events
         self.board = [[0] * BOARD_WIDTH for _ in range(BOARD_HEIGHT)]
         self.timer = QBasicTimer()
@@ -76,8 +75,9 @@ class TetrisBoard(QWidget):
                 if cell:
                     new_x = self.current_x + x + dx
                     new_y = self.current_y + y + dy
-                    if (new_x < 0 or new_x >= BOARD_WIDTH or new_y >= BOARD_HEIGHT or
-                            (new_y >= 0 and self.board[new_y][new_x] > 0)):
+                    if (new_x < 0 or new_x >= BOARD_WIDTH or
+                        new_y >= BOARD_HEIGHT or
+                        (new_y >= 0 and self.board[new_y][new_x] > 0)):
                         return False
         return True
 
@@ -150,7 +150,6 @@ class TetrisBoard(QWidget):
                 self.lock_piece()
             self.update()
 
-# Main application window
 class Tetris(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -168,6 +167,7 @@ class Tetris(QMainWindow):
         central_widget = QWidget()
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
+        self.setFixedSize(BOARD_WIDTH * TILE_SIZE + 20, BOARD_HEIGHT * TILE_SIZE + 60)  # Prevent resizing issues
 
     def update_score(self, score):
         """ Update score display. """
@@ -176,6 +176,5 @@ class Tetris(QMainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = Tetris()
-    window.resize(BOARD_WIDTH * TILE_SIZE, BOARD_HEIGHT * TILE_SIZE)
     window.show()
     sys.exit(app.exec())
