@@ -2,20 +2,22 @@
 This is a Tetris game built using PyQt6. 
 (Current Version v1.2)
 
+> [!IMPORTANT]
+> ## Bug Fixes for v1.2
+> **Improved Collision and Locking:** Remade collision checks to prevent overlapping or freezing, making sure the pieces lock in place correctly when reaching the bottom or other blocks, with immediate board updates and line clearing.
+>
+> *(this unironically made a similar bug where the pieces duplicates)*
+>
+> **Fixed Pieces falling off screen:** The borders where to long vertically so it would fall off screen.
+
 ## Current Features
 <details>
+  
 - Tetris gameplay with random block drops
 - Smooth block movement and rotation
 - Simple scoring system
 - JUST ONE BLOCK COLOR! RED :D (will be changed it future versions lol)
 </details>
-
-> [!IMPORTANT]
-> ## Bug Fixes for v1.2
->
->
->
->
 
 ## Upcoming Features
 <details>
