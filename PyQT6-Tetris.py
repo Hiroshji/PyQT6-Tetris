@@ -6,7 +6,7 @@ import random
 
 # Constants
 BOARD_WIDTH = 10  # Width of the Tetris board
-BOARD_HEIGHT = 20  # Height of the Tetris board
+BOARD_HEIGHT = 25  # Height of the Tetris board
 TILE_SIZE = 30  # Size of each Tetris tile in pixels
 
 # Define Tetromino shapes and rotations

@@ -27,6 +27,9 @@ This is a Tetris game built using PyQt6.
 - Actual UI with good looking visuals and animations just like tetris
 - High score tracking and possibly a leaderboard
 - Pause/resume button during gameplay
+- Score to see how many lines you've completed
+- Different colours for the blocks like green and yellow
+- MUSIC!
 </details>
 
 
