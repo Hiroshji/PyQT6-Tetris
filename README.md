@@ -1,10 +1,18 @@
 # PyQT6 - Tetris
 This is a Tetris game built using PyQt6. 
-(Current Version v1.3)
+(Current Version v1.4)
 
 > [!IMPORTANT]
-> ## Bug Fixes for v1.3
-> **Fixed Blocks Duplicating:** Fixed an issue where clearing lines caused duplicated blocks due to list reference bug.
+> ## New Features
+> Added a New Game Over Screen when theres no valid possition to place a block.
+> Added a New Ghost Piece feature its a faint outline of the Tetris piece shown at the lowest spot it can land.
+>
+> ## Bug Fixes for v1.4
+> No Bugs surprisngly *unless im wrong*
+
+
+
+
 
 ## Current Features
 <details>
@@ -18,15 +26,16 @@ This is a Tetris game built using PyQt6.
 ## Upcoming Features
 <details>
 
-- Game Over screen
-- An Actual Main menu
-- Actual UI with good looking visuals and animations just like tetris
-- High score tracking and possibly a leaderboard
-- Pause/resume button during gameplay
-- Score to see how many lines you've completed
-- Different colours for the blocks like green and yellow
+- ~~Game Over screen.~~ 
+- An Actual Main menu.
+- Actual UI with good looking visuals and animations just like tetris.
+- High score tracking and possibly a leaderboard.
+- Pause/resume button during gameplay.
+- Score to see how many lines you've completed.
+- Different colours for the blocks like green and yellow.
 - MUSIC!
 - Adding more speed with progression (the higher score you get the faster it gets.)
+- ~~Ghost piece (faint outline of the Tetris piece shown at the lowest spot it can land.)~~
 </details>
 
 
