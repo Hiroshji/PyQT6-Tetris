@@ -97,7 +97,7 @@ class TetrisBoard(QWidget):
         if cleared_lines > 0:
             self.score += cleared_lines ** 2  # Simple scoring
             self.score_changed.emit(self.score)  # Emit the score change signal
-            self.board = [[0] * BOARD_WIDTH] * cleared_lines + new_board
+            self.board = [[0] * BOARD_WIDTH for _ in range(cleared_lines)] + new_board
         self.update()
 
     def paintEvent(self, event):

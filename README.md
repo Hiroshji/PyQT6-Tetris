@@ -1,14 +1,10 @@
 # PyQT6 - Tetris
 This is a Tetris game built using PyQt6. 
-(Current Version v1.2)
+(Current Version v1.3)
 
 > [!IMPORTANT]
-> ## Bug Fixes for v1.2
-> **Improved Collision and Locking:** Remade collision checks to prevent overlapping or freezing, making sure the pieces lock in place correctly when reaching the bottom or other blocks, with immediate board updates and line clearing.
->
-> *(this unironically made a similar bug where the pieces duplicates)*
->
-> **Fixed Pieces falling off screen:** The borders where to long vertically so it would fall off screen.
+> ## Bug Fixes for v1.3
+> **Fixed Blocks Duplicating:** Fixed an issue where clearing lines caused duplicated blocks due to list reference bug.
 
 ## Current Features
 <details>
@@ -30,13 +26,14 @@ This is a Tetris game built using PyQt6.
 - Score to see how many lines you've completed
 - Different colours for the blocks like green and yellow
 - MUSIC!
+- Adding more speed with progression (the higher score you get the faster it gets.)
 </details>
 
 
 ## How to Play
 <details>
 
-- Use arrow keys to move and rotate blocks. 
+- Use arrow keys to move and rotate blocks and spacebar to speed thru it. 
 - Clear lines to earn points!
 - Try to keep the blocks from reaching the top.
 </details>
