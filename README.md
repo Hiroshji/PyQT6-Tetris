@@ -5,6 +5,7 @@ This is a Tetris game built using PyQt6.
 > [!IMPORTANT]
 > ## New Features
 > Added a New Game Over Screen when theres no valid possition to place a block.
+> 
 > Added a New Ghost Piece feature its a faint outline of the Tetris piece shown at the lowest spot it can land.
 >
 > ## Bug Fixes for v1.4
