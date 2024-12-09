@@ -4,10 +4,8 @@ This is a Tetris game built using PyQt6.
 
 > [!IMPORTANT]
 > ## New Features
-> Added a New Game Over Screen when theres no valid possition to place a block.
 > 
-> Added a New Ghost Piece feature its a faint outline of the Tetris piece shown at the lowest spot it can land.
->
+> ADDED FUCKING MUSIC! LETS GO
 > ## Bug Fixes for v1.4
 > No Bugs surprisngly *unless im wrong*
 
@@ -34,7 +32,7 @@ This is a Tetris game built using PyQt6.
 - Pause/resume button during gameplay.
 - Score to see how many lines you've completed.
 - Different colours for the blocks like green and yellow.
-- MUSIC!
+- ~~MUSIC!~~
 - Adding more speed with progression (the higher score you get the faster it gets.)
 - ~~Ghost piece (faint outline of the Tetris piece shown at the lowest spot it can land.)~~
 </details>

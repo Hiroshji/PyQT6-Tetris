@@ -1,8 +1,10 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel
 from PyQt6.QtGui import QPainter, QColor, QKeyEvent, QFont
-from PyQt6.QtCore import QBasicTimer, Qt, QRect, pyqtSignal
+from PyQt6.QtCore import QBasicTimer, Qt, QRect, pyqtSignal, QUrl
+from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 import sys
 import random
+import os
 
 # Constants
 BOARD_WIDTH = 10
@@ -49,15 +51,15 @@ class TetrisBoard(QWidget):
         self.current_x = 0
         self.current_y = 0
         self.score = 0
-        self.is_game_over = False  # Track game over state
+        self.is_game_over = False
 
-        # Add a game over label
+        # Game over label
         self.game_over_label = QLabel("GAME OVER", self)
         self.game_over_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.game_over_label.setFont(QFont("Arial", 24, QFont.Weight.Bold))
         self.game_over_label.setStyleSheet("color: white; background-color: black;")
         self.game_over_label.setGeometry(0, BOARD_HEIGHT * TILE_SIZE // 2 - 50, BOARD_WIDTH * TILE_SIZE, 100)
-        self.game_over_label.hide()  # Hide the label initially
+        self.game_over_label.hide()
 
         self.init_game()
 
@@ -71,13 +73,12 @@ class TetrisBoard(QWidget):
         self.current_x = BOARD_WIDTH // 2 - 1
         self.current_y = 0
         if not self.is_valid_position():
-            self.end_game()  # Trigger game over if the new piece has no valid space
+            self.end_game()
 
     def end_game(self):
-        """End the game by stopping the timer and showing the Game Over label."""
         self.timer.stop()
         self.is_game_over = True
-        self.game_over_label.show()  # Display the "GAME OVER" message
+        self.game_over_label.show()
         self.update()
 
     def is_valid_position(self, dx=0, dy=0):
@@ -109,31 +110,14 @@ class TetrisBoard(QWidget):
             self.board = [[0] * BOARD_WIDTH for _ in range(cleared_lines)] + new_board
         self.update()
 
-    def get_ghost_position(self):
-        """Calculate the y-coordinate where the current piece will land."""
-        ghost_y = self.current_y
-        while self.is_valid_position(0, ghost_y - self.current_y + 1):
-            ghost_y += 1
-        return ghost_y
-
     def paintEvent(self, event):
         painter = QPainter(self)
-        
-        # Draw locked blocks on the board
         for y in range(BOARD_HEIGHT):
             for x in range(BOARD_WIDTH):
                 if self.board[y][x]:
                     self.draw_tile(painter, x, y, QColor(50, 150, 200))
 
         if self.current_piece:
-            # Draw the ghost piece
-            ghost_y = self.get_ghost_position()
-            for y, row in enumerate(self.current_piece.shape):
-                for x, cell in enumerate(row):
-                    if cell:
-                        self.draw_tile(painter, self.current_x + x, ghost_y + y, QColor(200, 50, 50, 80))  # Ghost piece color
-
-            # Draw the current piece
             for y, row in enumerate(self.current_piece.shape):
                 for x, cell in enumerate(row):
                     if cell:
@@ -146,7 +130,6 @@ class TetrisBoard(QWidget):
     def keyPressEvent(self, event: QKeyEvent):
         if not self.current_piece or self.is_game_over:
             return
-
         if event.key() == Qt.Key.Key_Left and self.is_valid_position(-1, 0):
             self.current_x -= 1
         elif event.key() == Qt.Key.Key_Right and self.is_valid_position(1, 0):
@@ -177,7 +160,6 @@ class Tetris(QMainWindow):
         self.setWindowTitle("Tetris")
         self.tetris_board = TetrisBoard(self)
         self.score_label = QLabel("Score: 0", self)
-
         self.tetris_board.score_changed.connect(self.update_score)
 
         layout = QVBoxLayout()
@@ -189,8 +171,22 @@ class Tetris(QMainWindow):
         self.setCentralWidget(central_widget)
         self.setFixedSize(BOARD_WIDTH * TILE_SIZE + 20, BOARD_HEIGHT * TILE_SIZE + 60)
 
+        self.play_music()
+
     def update_score(self, score):
         self.score_label.setText(f"Score: {score}")
+
+    def play_music(self):
+        music_path = os.path.join("music", "gangmanstyle.mp3")
+        if not os.path.exists(music_path):
+            print("Music file not found!")
+            return
+        self.media_player = QMediaPlayer()
+        self.audio_output = QAudioOutput()
+        self.media_player.setAudioOutput(self.audio_output)
+        self.media_player.setSource(QUrl.fromLocalFile(music_path))
+        self.media_player.setLoops(QMediaPlayer.Loops.Infinite)
+        self.media_player.play()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
