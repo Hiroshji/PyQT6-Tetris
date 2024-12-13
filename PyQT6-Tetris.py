@@ -61,6 +61,17 @@ class TetrisBoard(QWidget):
         self.game_over_label.setGeometry(0, BOARD_HEIGHT * TILE_SIZE // 2 - 50, BOARD_WIDTH * TILE_SIZE, 100)
         self.game_over_label.hide()
 
+        # Single reusable media player
+        self.media_player = QMediaPlayer()
+        self.audio_output = QAudioOutput()
+        self.media_player.setAudioOutput(self.audio_output)
+
+        # Sound files
+        self.sounds = {
+            "clear": os.path.join("music", "tetrisclear.mp3"),
+            "game_over": os.path.join("music", "DUN.mp3")
+        }
+
         self.init_game()
 
     def init_game(self):
@@ -79,6 +90,7 @@ class TetrisBoard(QWidget):
         self.timer.stop()
         self.is_game_over = True
         self.game_over_label.show()
+        self.play_sound("game_over")
         self.update()
 
     def is_valid_position(self, dx=0, dy=0):
@@ -108,7 +120,15 @@ class TetrisBoard(QWidget):
             self.score += cleared_lines ** 2
             self.score_changed.emit(self.score)
             self.board = [[0] * BOARD_WIDTH for _ in range(cleared_lines)] + new_board
+            self.play_sound("clear")
         self.update()
+
+    def play_sound(self, sound_key):
+        sound_path = self.sounds.get(sound_key)
+        if sound_path and os.path.exists(sound_path):
+            self.media_player.stop()
+            self.media_player.setSource(QUrl.fromLocalFile(sound_path))
+            self.media_player.play()
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -171,22 +191,19 @@ class Tetris(QMainWindow):
         self.setCentralWidget(central_widget)
         self.setFixedSize(BOARD_WIDTH * TILE_SIZE + 20, BOARD_HEIGHT * TILE_SIZE + 60)
 
-        self.play_music()
+        # Background music setup
+        self.background_music_player = QMediaPlayer()
+        self.background_audio_output = QAudioOutput()
+        self.background_music_player.setAudioOutput(self.background_audio_output)
+
+        music_path = os.path.join("music", "gangmanstyle.mp3")
+        if os.path.exists(music_path):
+            self.background_music_player.setSource(QUrl.fromLocalFile(music_path))
+            self.background_music_player.setLoops(QMediaPlayer.Loops.Infinite)
+            self.background_music_player.play()
 
     def update_score(self, score):
         self.score_label.setText(f"Score: {score}")
-
-    def play_music(self):
-        music_path = os.path.join("music", "gangmanstyle.mp3")
-        if not os.path.exists(music_path):
-            print("Music file not found!")
-            return
-        self.media_player = QMediaPlayer()
-        self.audio_output = QAudioOutput()
-        self.media_player.setAudioOutput(self.audio_output)
-        self.media_player.setSource(QUrl.fromLocalFile(music_path))
-        self.media_player.setLoops(QMediaPlayer.Loops.Infinite)
-        self.media_player.play()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
