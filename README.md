@@ -1,15 +1,10 @@
 # PyQT6 - Tetris
 This is a Tetris game built using PyQt6. 
-(Current Version v1.4)
+(Current Version v1.7)
 
 > [!IMPORTANT]
 > ## New Features
-> 
-> ADDED FUCKING MUSIC! LETS GO
-> ## Bug Fixes for v1.4
-> No Bugs surprisngly *unless im wrong*
-
-
+> This is going to be the final update for the tetris game in pyqt6.
 
 
 

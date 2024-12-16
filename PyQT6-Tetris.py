@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel
 from PyQt6.QtGui import QPainter, QColor, QKeyEvent, QFont
-from PyQt6.QtCore import QBasicTimer, Qt, QRect, pyqtSignal, QUrl
+from PyQt6.QtCore import QBasicTimer, Qt, pyqtSignal, QUrl
 from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 import sys
 import random
